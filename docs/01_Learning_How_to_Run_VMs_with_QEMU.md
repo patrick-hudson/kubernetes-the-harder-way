@@ -206,10 +206,10 @@ We haven't provided any drive with an actual operating system though, so nothing
 
 After first steps with QEMU, it's time to launch an actual operating system.
 
-Let's download a Live CD image for Ubuntu Plucky:
+Let's download a Live CD image for Ubuntu Resolute:
 
 ```
-wget -O ubuntu-livecd.iso https://cdimage.ubuntu.com/releases/plucky/release/ubuntu-25.04-desktop-amd64.iso
+wget -O ubuntu-livecd.iso https://releases.ubuntu.com/26.04/ubuntu-26.04.1-desktop-amd64.iso
 ```
 
 The QEMU option to mount it as a CDROM drive is:
@@ -423,10 +423,10 @@ in order to prepare a more server-like distribution. Here's what's going to chan
 Cloud image is a disk image with a preinstalled Ubuntu distribution. It is optimized for server usage (headless) and
 requires some additional, automated preconfiguration (e.g. to set up remote SSH access).
 
-Let's download a Plucky cloud image for AMD64:
+Let's download a Resolute cloud image for AMD64:
 
 ```
-wget -O ubuntu-cloud.img https://cloud-images.ubuntu.com/plucky/current/plucky-server-cloudimg-amd64.img
+wget -O ubuntu-cloud.img https://cloud-images.ubuntu.com/resolute/current/resolute-server-cloudimg-amd64.img
 ```
 
 This file is in QCOW2 format.

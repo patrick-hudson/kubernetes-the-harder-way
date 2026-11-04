@@ -106,7 +106,7 @@ helm install -n kube-system cilium cilium/cilium \
   --set kubeProxyReplacement=true \
   --set k8sServiceHost=kubernetes \
   --set k8sServicePort=6443 \
-  --set cgroup.automount.enabled=false \
+  --set cgroup.autoMount.enabled=false \
   --set cgroup.hostRoot=/sys/fs/cgroup
 ```
 

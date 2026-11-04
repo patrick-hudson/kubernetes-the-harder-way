@@ -1,11 +1,11 @@
 # Common variables reused in other scripts
 
-etcd_version=3.6.2
-k8s_version=1.33.2
-cri_version=1.33.0
-runc_version=1.3.0
-containerd_version=2.1.3
-cni_plugins_version=1.7.1
+etcd_version=3.6.16
+k8s_version=1.36.6
+cri_version=1.36.0
+runc_version=1.5.2
+containerd_version=2.3.7
+cni_plugins_version=1.9.1
 cni_spec_version=1.0.0
 
 case $(uname -m) in

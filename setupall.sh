@@ -31,7 +31,7 @@ cd "$dir/auth"
 cd ..
 
 wget -P "$dir" -q --show-progress --https-only --timestamping -O ubuntu-cloud.img \
-  https://cloud-images.ubuntu.com/plucky/current/plucky-server-cloudimg-${arch}.img
+  https://cloud-images.ubuntu.com/resolute/current/resolute-server-cloudimg-${arch}.img
 
 "$dir/vmsetupall.sh"
 sudo -E "$dir/setuphost.sh"

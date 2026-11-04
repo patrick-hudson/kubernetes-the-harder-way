@@ -107,10 +107,10 @@ Let's define some reusable shell variables to use throughout this chapter:
 ```bash
 arch=amd64
 
-etcd_version=3.6.2
-k8s_version=1.33.2
+etcd_version=3.6.16
+k8s_version=1.36.6
 
-vmaddr=$(ip addr show enp0s1 | grep -Po 'inet \K192\.168\.42\.\d+')
+vmaddr=$(ip addr show enp0s2 | grep -Po 'inet \K192\.168\.42\.\d+')
 vmname=$(hostname -s)
 ```
 
@@ -246,7 +246,6 @@ Documentation=https://github.com/kubernetes/kubernetes
 ExecStart=/usr/local/bin/kube-apiserver \\
   --advertise-address=${vmaddr} \\
   --allow-privileged=true \\
-  --apiserver-count=3 \\
   --audit-log-maxage=30 \\
   --audit-log-maxbackup=3 \\
   --audit-log-maxsize=100 \\
@@ -341,7 +340,7 @@ At first, this seems very easy to do: just assign this address statically to one
 For example, we could do something like this:
 
 ```bash
-sudo ip addr add 192.168.42.21/32 dev enp0s1
+sudo ip addr add 192.168.42.21/32 dev enp0s2
 ```
 
 However, we have a problem: an IP address conflict in the network. If anyone on the local network asks (via ARP) who has

@@ -86,12 +86,13 @@ Let's define some reusable shell variables for this chapter. Run this in the SSH
 
 ```bash
 arch=amd64
-k8s_version=1.33.2
-cri_version=1.33.0
-runc_version=1.3.0
-containerd_version=2.1.3
-cni_plugins_version=1.7.1
+k8s_version=1.36.6
+cri_version=1.36.0
+runc_version=1.5.2
+containerd_version=2.3.7
+cni_plugins_version=1.9.1
 cni_spec_version=1.0.0
+vmaddr=$(ip addr show | grep -Po 'inet \K192\.168\.42\.1\d+')
 ```
 
 All further instructions assume availability of these variables (make sure to run everything in the same shell).
@@ -415,6 +416,7 @@ Requires=containerd.service
 ExecStart=/usr/local/bin/kubelet \\
   --config=/var/lib/kubelet/kubelet-config.yaml \\
   --kubeconfig=/var/lib/kubelet/kubeconfig \\
+  --node-ip=${vmaddr} \\
   --v=2
 Restart=on-failure
 RestartSec=5
@@ -423,6 +425,10 @@ RestartSec=5
 WantedBy=multi-user.target
 EOF
 ```
+
+> [!IMPORTANT]
+> `--node-ip` must be set explicitly, because control nodes also have the Kubernetes API virtual IP assigned to their
+> loopback interface. Without this option, `kubelet` picks the virtual IP, and all control nodes report the same address.
 
 Enable and run it:
 

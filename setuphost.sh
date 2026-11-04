@@ -43,13 +43,19 @@ fi
 iptables -t nat -N KUBENET_NAT
 iptables -t nat -A POSTROUTING -j KUBENET_NAT
 iptables -t nat -A KUBENET_NAT ! -o kubr0 -s 192.168.42.0/24 -j MASQUERADE
+
+# Docker sets the default FORWARD policy to DROP, which would block traffic to and from the VMs
+if iptables -L DOCKER-USER > /dev/null 2>&1; then
+  iptables -C DOCKER-USER -i kubr0 -j ACCEPT 2> /dev/null || iptables -I DOCKER-USER -i kubr0 -j ACCEPT
+  iptables -C DOCKER-USER -o kubr0 -j ACCEPT 2> /dev/null || iptables -I DOCKER-USER -o kubr0 -j ACCEPT
+fi
 EOF
 chmod +x /usr/local/bin/kubenet-nat.sh
 
 cat <<EOF | tee /etc/systemd/system/kubenet-nat.service
 [Unit]
 Description=Kubenet VM network NAT rules
-After=network.target
+After=network.target docker.service
 
 [Service]
 Type=oneshot

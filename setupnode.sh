@@ -11,6 +11,7 @@ if [[ "$EUID" -ne 0 ]]; then
   exit 1
 fi
 
+vmaddr=$(ip addr show | grep -Po 'inet \K192\.168\.42\.1\d+')
 vmname=$(hostname -s)
 
 case "$vmname" in
@@ -176,6 +177,7 @@ Requires=containerd.service
 ExecStart=/usr/local/bin/kubelet \\
   --config=/var/lib/kubelet/kubelet-config.yaml \\
   --kubeconfig=/var/lib/kubelet/kubeconfig \\
+  --node-ip=${vmaddr} \\
   --v=2
 Restart=on-failure
 RestartSec=5

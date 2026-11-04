@@ -68,7 +68,7 @@ cd ..
 Download the base image:
 
 ```bash
-wget -O ubuntu-cloud.img https://cloud-images.ubuntu.com/plucky/current/plucky-server-cloudimg-amd64.img
+wget -O ubuntu-cloud.img https://cloud-images.ubuntu.com/resolute/current/resolute-server-cloudimg-amd64.img
 ```
 
 Make sure you have an SSH public key (`~/.ssh/id_ed25519.pub`). If not, generate with:

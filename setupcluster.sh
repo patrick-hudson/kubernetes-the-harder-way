@@ -12,7 +12,7 @@ if [[ -n $USE_CILIUM ]]; then
     --set kubeProxyReplacement=true \
     --set k8sServiceHost=kubernetes \
     --set k8sServicePort=6443 \
-    --set cgroup.automount.enabled=false \
+    --set cgroup.autoMount.enabled=false \
     --set cgroup.hostRoot=/sys/fs/cgroup \
     --wait --timeout 15m
 fi

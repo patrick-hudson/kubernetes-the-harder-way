@@ -92,15 +92,21 @@ Use this script to install all the necessary software for this guide:
 ```bash
 sudo apt install -y apt-transport-https ca-certificates
 
-curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key \
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.36/deb/Release.key \
   | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' \
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.36/deb/ /' \
   | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
-curl https://baltocdn.com/helm/signing.asc | sudo gpg --dearmor -o /usr/share/keyrings/helm.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" \
-  | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
-  
+curl -fsSL https://packages.buildkite.com/helm-linux/helm-debian/gpgkey \
+  | sudo tee /etc/apt/keyrings/helm.asc > /dev/null
+cat <<EOF | sudo tee /etc/apt/sources.list.d/helm-stable-debian.sources
+Types: deb
+URIs: https://packages.buildkite.com/helm-linux/helm-debian/any/
+Suites: any
+Components: main
+Signed-By: /etc/apt/keyrings/helm.asc
+EOF
+
 sudo apt update
 sudo apt install -y \
   qemu-system-x86 curl genisoimage dnsmasq tmux golang-cfssl nfs-kernel-server kubectl helm
